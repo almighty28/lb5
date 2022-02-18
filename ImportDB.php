@@ -1,4 +1,3 @@
-
 <?php $db_driver = "mysql";
 $host = "localhost";
 $database = "clientsseansedb";

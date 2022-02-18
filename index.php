@@ -1,4 +1,4 @@
-<?php include_once 'ImportDB.php';?>
+<?php include_once 'ImportDB.php'; ?>
 <!DOCTYPE html>
 <html lang = "ru">
 	<head>
@@ -18,6 +18,14 @@
 		
 			<input type = 'submit' name = 'check_by_client' id = 'check_by_client' value = 'Вывести статистику'>
 		</form>
+		<form method = 'post'>	
+			<input id = "date_in" name = "date_in" type="datetime-local">
+			<input id = "date_out" name = "date_out" type="datetime-local">
+			<input type = 'submit' name = 'check_by_date' id = 'check_by_date' value = 'Вывести статистику'>
+		</form>
+		<form method = 'post'>	
+			<input type = 'submit' name = 'list_of_client' id = 'list_of_client' value = 'Вывести клиетнов с отрицательным балансом'>
+		</form>
 		<?php
 				if(isset($_POST['check_by_client'])){
 					if(!empty($_POST['clients'])){
@@ -29,11 +37,14 @@
 				}
 		?>
 
-		<form method = 'post'>	
-			<input id = "date_in" name = "date_in" type="datetime-local">
-			<input id = "date_out" name = "date_out" type="datetime-local">
-			<input type = 'submit' name = 'check_by_date' id = 'check_by_date' value = 'Вывести статистику'>
-		</form>
+		<?php
+				if(isset($_POST['list_of_client'])){
+						echo "<table border = 1 align = 'center'> <tr> <th>Номер клиента</th> <th>Имя клиента</th> <th>IP</th> <th>Баланс</th> </tr>";
+						include 'List_of_client.php';
+						echo "</table>";}
+				
+		?>
+		
 		<?php
 				if(isset($_POST['check_by_date'])){
 					if(!empty($_POST['date_in']) && !empty($_POST['date_out'])){
@@ -45,16 +56,5 @@
 					else{echo "Выберите промежуток времени";}
 				}
 		?>
-		<form method = 'post'>	
-			<input type = 'submit' name = 'list_of_client' id = 'list_of_client' value = 'Вывести клиетнов с отрицательным балансом'>
-		</form>
-		<?php
-				if(isset($_POST['list_of_client'])){
-						echo "<table border = 1 align = 'center'> <tr> <th>Номер клиента</th> <th>Имя клиента</th> <th>IP</th> <th>Баланс</th> </tr>";
-						include 'List_of_client.php';
-						echo "</table>";}
-				
-		?>
-		
 	</body>
 </html>
